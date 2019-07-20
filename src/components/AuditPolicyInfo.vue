@@ -1,12 +1,11 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <button class="px-8 btn btn-primary mx-2">Manual Audit</button>
-      <button class="btn btn-primary mx-2">Automated Audit</button>
+      <button class="px-8 btn btn-primary mx-2" v-on:click="toogleManuelAudit">Manual Validation</button>
+      <button class="btn btn-primary mx-2" v-on:click="toogleScriptedAudit">Scripted Validation</button>
       <button class="btn btn-secondary mx-2">View Config</button>
-      <button class="btn btn-secondary mx-2">Parse Config</button>
-      <button class="btn btn-secondary mx-2">Parse SSH Command</button>
-      <button class="btn btn-secondary mx-2">Parse SNMP Command</button>
+      <button class="btn btn-secondary mx-2">Send SSH Command</button>
+      <button class="btn btn-secondary mx-2">Send SNMP Message</button>
     </div>
     <hr>
     <div class="h3">Group Title: {{ selectedPolicy.groupTitle }}</div>
@@ -62,37 +61,53 @@
       </div>
     </div>
     <hr>
-    <div class="col">
-      <div class="h4 font-weight-bold">Status:</div>
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Not Reviewed
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Open
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option3" autocomplete="off"> Not A Finding
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option3" autocomplete="off"> Not Applicable
-        </label>
+    <div class="col"></div>
+    <div class="Manual_Audit">
+      <div class="row my-2 justify-content-center">
+        <!-- <div class="h4 font-weight-bold">Status:</div> -->
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> Not Reviewed
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option2" autocomplete="off"> Open
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" autocomplete="off"> Not A Finding
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" autocomplete="off"> Not Applicable
+          </label>
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="h4 font-weight-bold">Finding Details:</div>
+        <div class="input-group">
+          <textarea class="form-control" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="h4 font-weight-bold">Comments:</div>
+        <div class="input-group">
+          <textarea class="form-control" aria-label="With textarea"></textarea>
+        </div>
+      </div>
+      <div class="row my-2">
+        <button class="btn btn-primary mx-1">Update</button>
+        <button class="btn btn-danger mx-1">Clear</button>
       </div>
     </div>
-    <div class="row my-2">
-      <div class="h4 font-weight-bold">Finding Details:</div>
-      <div class="input-group">
-        <textarea class="form-control" aria-label="With textarea"></textarea>
+    <div class="Scripted_Audit">
+      <div class="row my-2">
+        <div class="h4 font-weight-bold">YAML Script:</div>
+        <div class="input-group">
+          <textarea class="form-control" aria-label="With textarea"></textarea>
+        </div>
       </div>
-    </div>
-    <div class="row my-2">
-      <div class="h4 font-weight-bold">Comments:</div>
-      <div class="input-group">
-        <textarea class="form-control" aria-label="With textarea"></textarea>
+      <div class="row my-2">
+        <button class="btn btn-primary mx-1">Execute</button>
+        <button class="btn btn-secondary mx-1">Save</button>
       </div>
-    </div>
-    <div class="row my-2">
-      <button class="btn btn-primary">Update</button>
     </div>
   </div>
 </template>
@@ -101,6 +116,28 @@
 <script>
 export default {
   name: "AuditPolicyInfo",
+  methods: {
+    toogleManuelAudit: function(event) {
+      if (this.manualAudit) {
+        $(".Manual_Audit").hide();
+
+        this.manualAudit = false;
+      } else {
+        $(".Manual_Audit").show();
+
+        this.manualAudit = true;
+      }
+    },
+    toogleScriptedAudit: function(event) {
+      if (this.scriptedAudit) {
+        $(".Scripted_Audit").hide();
+        this.scriptedAudit = false;
+      } else {
+        $(".Scripted_Audit").show();
+        this.scriptedAudit = true;
+      }
+    }
+  },
   data() {
     return {
       selectedPolicy: {
@@ -128,7 +165,9 @@ export default {
           findings: { CAT_I: 1, CAT_II: 3, CAT_III: 5 },
           auditor: "Courtney Baxter "
         }
-      ]
+      ],
+      manualAudit: true,
+      scriptedAudit: false
     };
   }
 };

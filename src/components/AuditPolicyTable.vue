@@ -3,7 +3,7 @@
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
+          <th scope="col"></th>
           <th scope="col">Policy Name:</th>
           <th scope="col">Findings:</th>
           <th scope="col">Audtior:</th>
@@ -12,7 +12,9 @@
       <tbody>
         <tr v-for="policy in policies" :key="policy.policy_name">
           <th scope="row">
-            <button class="btn btn-primary">Select</button>
+            <button class="btn btn-primary mx-1">Select</button>
+            <button class="btn btn-secondary mx-1">Export CKL</button>
+            <button class="btn btn-secondary mx-1">View CKL</button>
           </th>
           <td>{{ policy.policy_name }}</td>
           <td>{{ policy.findings }}</td>

@@ -3,7 +3,7 @@
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Action</th>
+          <th scope="col"></th>
           <th scope="col">Vuln Name:</th>
           <th scope="col">VulnStatus:</th>
         </tr>
