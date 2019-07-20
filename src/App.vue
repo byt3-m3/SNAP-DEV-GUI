@@ -13,7 +13,7 @@
           <AuditVulnTable/>
         </div>
         <div class="col">
-          <AuditVulnTable/>test
+          <AuditPolicyInfo/>
         </div>
       </div>
     </div>
@@ -25,6 +25,7 @@ import HelloWorld from "./components/HelloWorld";
 import NodeTable from "./components/AuditNodeTable";
 import AuditPolicyTable from "./components/AuditPolicyTable";
 import AuditVulnTable from "./components/AuditVulnTable";
+import AuditPolicyInfo from "./components/AuditPolicyInfo";
 
 export default {
   name: "App",
@@ -32,7 +33,8 @@ export default {
     HelloWorld,
     AuditPolicyTable,
     NodeTable,
-    AuditVulnTable
+    AuditVulnTable,
+    AuditPolicyInfo
   }
 };
 </script>
