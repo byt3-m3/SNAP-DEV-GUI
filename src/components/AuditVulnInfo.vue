@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <h2 class="font-weight-bold">Policy Info:</h2>
     <div class="row">
       <button class="px-8 btn btn-primary mx-2" v-on:click="toogleManuelAudit">Manual Validation</button>
       <button class="btn btn-primary mx-2" v-on:click="toogleScriptedAudit">Scripted Validation</button>
@@ -8,30 +9,30 @@
       <button class="btn btn-secondary mx-2">Send SNMP Message</button>
     </div>
     <hr>
-    <div class="h3">Group Title: {{ selectedPolicy.groupTitle }}</div>
+    <div class="h3">Group Title: {{ vulnInfo.groupTitle }}</div>
     <hr>
     <div class="row">
       <div class="col">
         <div class="d-inline mx-2">
           <span class="font-weight-bold">Severity:</span>
-          {{ selectedVuln.severity }}
+          {{ vulnInfo.severity }}
         </div>
 
         <div class="d-inline mx-2">
           <span class="font-weight-bold">Vuln Num:</span>
-          {{ selectedVuln.vulnNum }}
+          {{ vulnInfo.vulnNum }}
         </div>
         <div class="d-inline mx-2">
           <span class="font-weight-bold">Vuln ID:</span>
-          {{ selectedVuln.vulndID }}
+          {{ vulnInfo.vulndID }}
         </div>
         <div class="d-inline mx-2">
           <span class="font-weight-bold">Classification:</span>
-          {{ selectedVuln.classification }}
+          {{ vulnInfo.classification }}
         </div>
         <div class="d-inline mx-2">
           <span class="font-weight-bold">Rule ID:</span>
-          {{ selectedVuln.ruleID }}
+          {{ vulnInfo.ruleID }}
         </div>
       </div>
       <!-- <div class="col">test</div> -->
@@ -41,7 +42,7 @@
       <div class="col">
         <div class="d-inline mx-2">
           <span class="h4 font-weight-bold">Rule Title:</span>
-          {{ selectedVuln.ruleTitle }}
+          {{ vulnInfo.ruleTitle }}
         </div>
       </div>
     </div>
@@ -49,15 +50,15 @@
     <div class="row">
       <div class="col">
         <div class="h4 font-weight-bold">Discussion:</div>
-        <div>{{ selectedPolicy.discussion }}</div>
+        <div>{{ vulnInfo.discussion }}</div>
       </div>
       <div class="col">
         <div class="h4 font-weight-bold">Check Content:</div>
-        <div>{{ selectedPolicy.checkContent }}</div>
+        <div>{{ vulnInfo.checkContent }}</div>
       </div>
       <div class="col">
         <div class="h4 font-weight-bold">Fix Text:</div>
-        <div>{{ selectedPolicy.fixText }}</div>
+        <div>{{ vulnInfo.fixText }}</div>
       </div>
     </div>
     <hr>
@@ -116,6 +117,7 @@
 <script>
 export default {
   name: "AuditPolicyInfo",
+  props: ["vulnInfo"],
   methods: {
     toogleManuelAudit: function(event) {
       if (this.manualAudit) {
