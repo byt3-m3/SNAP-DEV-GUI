@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <!-- <img width="25%" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Hello Vue in CodeSandbox!"/> -->
     <div class="container-fluid">
       <div class="row">
         <h1></h1>
@@ -9,7 +7,7 @@
       <div class="row">
         <div class="col">
           <div id="NodeTable">
-            <NodeTable :myNodes="nodes" @selectedNode="getNodeAudits($event)"/>
+            <AssetTable :myNodes="nodes" @selectedNode="getNodeAudits($event)"/>
           </div>
           <div id="AuditTable" v-if="auditTableEnabled">
             <AuditTable @AuditIDSet="getAuditVulns($event)" :audits="selectedAudit"/>
@@ -28,24 +26,27 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-import NodeTable from "./components/AuditNodeTable";
+import bootstrap from "bootstrap"; // eslint-disable-line no-unused-vars
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import AssetTable from "./components/AuditAssetTable";
 import AuditTable from "./components/AuditTable";
 import AuditVulnTable from "./components/AuditVulnTable";
 import AuditVulnInfo from "./components/AuditVulnInfo";
 
+import { store } from "./store/store.js";
+
 export default {
   name: "App",
+  store,
   components: {
-    HelloWorld,
     AuditTable,
-    NodeTable,
+    AssetTable,
     AuditVulnTable,
     AuditVulnInfo
   },
   data() {
     return {
-      nodeTableEnabled: false,
+      nodeTableEnabled: true,
       auditTableEnabled: false,
       vulnTableEnabled: false,
       vulnInfoEnabled: false,
@@ -183,7 +184,8 @@ export default {
       this.selectedNode.audits.forEach(function(audit) {
         if (audit.auditID === audit_id) {
           vm.selectedVulns = audit.vulns;
-          console.log(audit.vulns);
+          // console.log(audit.vulns);
+          console.log(vm.$store.state.selectedNode);
         }
         // console.log(audit);
       });

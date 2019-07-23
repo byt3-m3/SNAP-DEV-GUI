@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "NodeTable",
+  name: "AssetTable",
   props: {
     myNodes: {
       type: Array,
@@ -41,6 +41,7 @@ export default {
     },
     setID: function(id) {
       console.log(id);
+      console.log(this.$store.state.selectedNode)
       this.$emit("selectedNode", id);
     }
   },
